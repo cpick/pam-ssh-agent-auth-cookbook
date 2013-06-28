@@ -1,0 +1,8 @@
+#%PAM-1.0
+
+auth       required   pam_env.so readenv=1 user_readenv=0
+auth       required   pam_env.so readenv=1 envfile=/etc/default/locale user_readenv=0
+auth       sufficient pam_ssh_agent_auth.so file=/etc/security/authorized_keys
+@include common-auth
+@include common-account
+@include common-session-noninteractive
