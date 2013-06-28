@@ -1,50 +1,45 @@
 pam-ssh-agent-auth Cookbook
 ===========================
-TODO: Enter the cookbook description here.
+Install [pam_ssh_agent_auth](http://pamsshagentauth.sf.net/) from a [launchpad.net ppa](https://launchpad.net/~cpick/+archive/pam-ssh-agent-auth) and enable it for sudo on Ubuntu 12.04 (precise) machines.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+Patches (especially to support other architectures/OS vesrions) very welcome.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
 
-e.g.
 #### packages
-- `toaster` - pam-ssh-agent-auth needs toaster to brown your bagel.
+- `apt` - used to add the ppa.
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
 
-e.g.
 #### pam-ssh-agent-auth::default
 <table>
   <tr>
     <th>Key</th>
     <th>Type</th>
     <th>Description</th>
-    <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['pam-ssh-agent-auth']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['pam_ssh_agent_auth']['keys']</tt></td>
+    <td>Array</td>
+    <td>Authorized keys to accept when sudo is authenticating via the ssh-agent.</td>
   </tr>
 </table>
 
 Usage
 -----
 #### pam-ssh-agent-auth::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `pam-ssh-agent-auth` in your node's `run_list`:
+Just set your authorized keys and include `pam-ssh-agent-auth` in your node's `run_list`:
 
 ```json
 {
-  "name":"my_node",
+  "pam_ssh_agent_auth": {
+    "keys": {
+      "ssh-rsa ...",
+      "ssh-rsa ..."
+    }
+  },
   "run_list": [
     "recipe[pam-ssh-agent-auth]"
   ]
@@ -53,16 +48,8 @@ Just include `pam-ssh-agent-auth` in your node's `run_list`:
 
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+Please use standard Github issues/pull requests.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Chris Pick
