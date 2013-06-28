@@ -35,10 +35,10 @@ Just set your authorized keys and include `pam-ssh-agent-auth` in your node's `r
 ```json
 {
   "pam_ssh_agent_auth": {
-    "keys": {
+    "keys": [
       "ssh-rsa ...",
       "ssh-rsa ..."
-    }
+    ]
   },
   "run_list": [
     "recipe[pam-ssh-agent-auth]"
