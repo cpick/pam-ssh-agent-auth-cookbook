@@ -41,11 +41,10 @@ cookbook_file '/etc/sudoers.d/pam-ssh-agent-auth' do
     mode 00440
 end
 
-ssh_authorized_keys = node[:pam_ssh_agent_auth][:keys].join('\n') + '\n'
+ssh_authorized_keys = node[:pam_ssh_agent_auth][:keys].join("\n") + "\n"
 file '/etc/security/authorized_keys' do
     owner 'root'
     group 'root'
     mode 00600
     content ssh_authorized_keys
-    action :create_if_missing
 end
