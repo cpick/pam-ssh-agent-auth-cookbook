@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: pam-ssh-agent-auth
-# Recipe:: default
+# Recipe:: configure
 #
 # Copyright 2013, Chris Pick
 #
@@ -17,16 +17,22 @@
 # limitations under the License.
 #
 
-include_recipe 'apt'
-
-apt_repository 'cpick-pam-ssh-agent-auth' do
-    uri 'http://ppa.launchpad.net/cpick/pam-ssh-agent-auth/ubuntu'
-    distribution node['lsb']['codename']
-    components ['main']
-    keyserver 'keyserver.ubuntu.com'
-    key '9A7B416C'
+cookbook_file '/etc/pam.d/sudo' do
+    owner 'root'
+    group 'root'
+    mode 00644
 end
 
-package 'pam-ssh-agent-auth'
+cookbook_file '/etc/sudoers.d/pam-ssh-agent-auth' do
+    owner 'root'
+    group 'root'
+    mode 00440
+end
 
-include_recipe 'pam-ssh-agent-auth::configure'
+ssh_authorized_keys = node[:pam_ssh_agent_auth][:keys].join("\n") + "\n"
+file '/etc/security/authorized_keys' do
+    owner 'root'
+    group 'root'
+    mode 00600
+    content ssh_authorized_keys
+end
